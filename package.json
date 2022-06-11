@@ -1,10 +1,11 @@
 {
-  "name": "waypoint",
+  "name": "gugor",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel-node index.js",
+    "start": "nodemon --exec npm run build "
   },
   "keywords": [],
   "author": "",
@@ -12,5 +13,12 @@
   "dependencies": {
     "discord.js": "^13.8.0",
     "dotenv": "^16.0.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.2",
+    "@babel/node": "^7.17.10",
+    "@babel/preset-env": "^7.18.2",
+    "nodemon": "^2.0.16"
   }
 }
