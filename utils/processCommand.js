@@ -4,18 +4,21 @@
  * @param {string} syntax Syntax string
  * @returns {object} Formated command
  */
-export function formatArguments(commandString, syntax) {
+export function getDynamicArguments(commandString, syntax) {
   const commandArguments = commandString.split(" ");
   const syntaxObject = formatSyntax(syntax);
 
   // asign value to dynamic arguments
-  const formatedArguments = syntaxObject.map((argument) => {
-    if (!argument.dynamic) return argument;
+  const dynamicArguments = {};
 
-    return { ...argument, value: commandArguments[argument.index] };
+  syntaxObject.forEach((syntaxArgument) => {
+    if (!syntaxArgument.dynamic) return;
+
+    dynamicArguments[syntaxArgument.argument] =
+      commandArguments[syntaxArgument.index];
   });
 
-  return formatedArguments;
+  return dynamicArguments;
 }
 
 /**

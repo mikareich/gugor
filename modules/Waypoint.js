@@ -1,10 +1,30 @@
+import Module from "./Module";
 class Waypoint extends Module {
-  constructor() {
-    super("waypoint");
+  static createWaypoint({ name, x, y, z }) {
+    const waypoint = {
+      name,
+      coordinates: {
+        x: parseFloat(x),
+        y: parseFloat(y),
+        z: parseFloat(z),
+      },
+    };
+
+    console.log(waypoint);
   }
 
-  processCommand(message) {
-    const args = message.content.split(" ");
-    
+  static CommandMap = [
+    {
+      syntax: "set <name> <x> <y> <z>",
+      description: "Creates a waypoint",
+      execute: (commandString, dynamicArguments, msgObject) =>
+        this.createWaypoint(dynamicArguments, msgObject),
+    },
+  ];
+
+  constructor() {
+    super("waypoint", Waypoint.CommandMap);
   }
 }
+
+export default Waypoint;
