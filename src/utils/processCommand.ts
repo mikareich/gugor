@@ -69,7 +69,7 @@ export function getDynamicArguments(
 
   // asign value to dynamic arguments
   syntaxObject.forEach((argument) => {
-    if (argument.dynamic) return
+    if (!argument.dynamic) return
 
     const value = commandArguments[argument.startsAt]
     dynamicArguments[argument.syntax] = value
@@ -88,6 +88,7 @@ export function matchingSyntax(
   absoluteCommandString: string,
   syntaxString: string
 ): boolean {
+  console.log(absoluteCommandString, syntaxString)
   const commandArguments = absoluteCommandString.split(" ")
   const syntaxArguments = formatSyntax(syntaxString)
 
@@ -99,12 +100,12 @@ export function matchingSyntax(
   // check if all static parts in the command are included
   const allPartsIncluded = syntaxArguments.every((part, index) => {
     if (part.dynamic) return true
+
     const startIndex = part.startsAt
     const endIndex = syntaxArguments[index + 1]?.startsAt || startIndex
 
     const absoluteValue = commandArguments.slice(startIndex, endIndex).join(" ")
-
-    return absoluteValue === part.value
+    return absoluteValue === part.syntax
   })
 
   return isLongEnough && allPartsIncluded

@@ -11,6 +11,7 @@ class Waypoint extends CommandModule {
   ]
 
   private static createWaypoint({ name, x, y, z }: DynamicArguments) {
+    console.log(name, x, y, z)
     const waypoint = {
       name,
       coordinates: {

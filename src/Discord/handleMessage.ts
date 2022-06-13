@@ -10,14 +10,12 @@ function handleMessage(message: Message, modules: CommandModule[]) {
   if (!message.content.startsWith(botOptions.commandPrefix)) return
   if (message.author.bot) return
 
-  console.log(message.content)
-
   // split the message into command and arguments
   const [, moduleName, ...command] = message.content.split(" ")
   const absoluteCommandString = command.join(" ")
   // call module and pass the message and the command
   const module = modules.find((m) => m.moduleName === moduleName?.toLowerCase())
-
+  console.log(moduleName)
   if (module) module.processCommand(absoluteCommandString)
   else
     message.channel.send(

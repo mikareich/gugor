@@ -43,6 +43,7 @@ class CommandModule {
    * @param {Message} message
    */
   public processCommand(absoluteCommand: string) {
+    console.log(absoluteCommand)
     this.commandMap.forEach((command) => {
       // if command matches syntax
       if (matchingSyntax(absoluteCommand, command.syntax)) {

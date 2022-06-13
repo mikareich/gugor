@@ -1,5 +1,5 @@
 const botOptions = {
-  commandPrefix: "🤖 gugor",
+  commandPrefix: "/gugor",
 }
 
 export default botOptions
