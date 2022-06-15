@@ -1,5 +1,6 @@
 import { Message } from "discord.js"
 import CommandModule from "../CommandModules/CommandModule"
+import ErrorHandler from "../ErrorHandling/ErrorHandler"
 import botOptions from "../utils/botOptions"
 
 /**
@@ -12,15 +13,17 @@ function handleMessage(message: Message, modules: CommandModule[]) {
 
   // split the message into command and arguments
   const [, moduleName, ...command] = message.content.split(" ")
-  const absoluteCommandString = command.join(" ")
+
   // call module and pass the message and the command
+  const absoluteCommandString = command.join(" ")
   const module = modules.find((m) => m.moduleName === moduleName?.toLowerCase())
-  console.log(moduleName)
-  if (module) module.processCommand(absoluteCommandString)
-  else
-    message.channel.send(
-      "Hehe imagine man hat sich vertippt lol [Module not found]"
-    )
+
+  if (!module) {
+    ErrorHandler.withCode(2, true)
+    return
+  }
+
+  module.processCommand(absoluteCommandString)
 }
 
 export default handleMessage

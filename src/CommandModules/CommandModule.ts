@@ -1,3 +1,4 @@
+import ErrorHandler from "../ErrorHandling/ErrorHandler"
 import {
   DynamicArguments,
   getDynamicArguments,
@@ -43,18 +44,20 @@ class CommandModule {
    * @param {Message} message
    */
   public processCommand(absoluteCommand: string) {
-    console.log(absoluteCommand)
-    this.commandMap.forEach((command) => {
-      // if command matches syntax
-      if (matchingSyntax(absoluteCommand, command.syntax)) {
-        // execute command
-        const commandAttributes = getDynamicArguments(
-          absoluteCommand,
-          command.syntax
-        )
-        command.execute(commandAttributes)
-      }
-    })
+    const command = this.commandMap.find(({ syntax }) =>
+      matchingSyntax(absoluteCommand, syntax)
+    )
+
+    if (!command) {
+      ErrorHandler.withCode(1, true)
+      return
+    }
+
+    const dynamicArguments = getDynamicArguments(
+      absoluteCommand,
+      command.syntax
+    )
+    command.execute(dynamicArguments)
   }
 }
 

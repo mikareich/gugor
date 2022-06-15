@@ -88,7 +88,6 @@ export function matchingSyntax(
   absoluteCommandString: string,
   syntaxString: string
 ): boolean {
-  console.log(absoluteCommandString, syntaxString)
   const commandArguments = absoluteCommandString.split(" ")
   const syntaxArguments = formatSyntax(syntaxString)
 
@@ -102,7 +101,7 @@ export function matchingSyntax(
     if (part.dynamic) return true
 
     const startIndex = part.startsAt
-    const endIndex = syntaxArguments[index + 1]?.startsAt || startIndex
+    const endIndex = syntaxArguments[index + 1]?.startsAt || startIndex + 1
 
     const absoluteValue = commandArguments.slice(startIndex, endIndex).join(" ")
     return absoluteValue === part.syntax
