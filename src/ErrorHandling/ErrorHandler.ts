@@ -1,30 +1,40 @@
-import sendMessage from "../Discord/sendMessage"
+import { CommandInteraction } from "discord.js"
 
 interface Error {
-  code: number
+  name: string
   message: string
+  code: number
 }
 
 class ErrorHandler {
-  static Errors: Error[] = [
-    { code: 1, message: "Command not found" },
-    { code: 2, message: "Command Module not found" },
-    { code: 3, message: "Error not found" },
-    { code: 4, message: "Channel not found" },
+  public static Errors: Error[] = [
+    {
+      name: "ErrorNotFound",
+      message: "Error not found",
+      code: 1,
+    },
+    {
+      name: "CommandNotFound",
+      message: "Command not found",
+      code: 2,
+    },
   ]
 
-  static withCode(code: number, sendFeedback?: boolean): Error {
+  public static withCode(
+    code: number,
+    sendFeedback?: CommandInteraction
+  ): Error | undefined {
     const error = ErrorHandler.Errors.find((e) => e.code === code)
 
-    if (!error) {
-      return ErrorHandler.withCode(3)
-    }
+    if (!error) return ErrorHandler.withCode(1, sendFeedback)
 
-    if (sendFeedback) {
-      sendMessage(`❌ ${error.message}`)
-    }
+    sendFeedback?.reply(error.message)
 
     return error
+  }
+
+  public static custom(message: string, sendFeedback?: CommandInteraction) {
+    sendFeedback?.reply(message)
   }
 }
 

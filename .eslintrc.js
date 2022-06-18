@@ -13,5 +13,7 @@ module.exports = {
   rules: {
     "import/no-unresolved": "off",
     "import/extensions": "off",
+    "class-methods-use-this": "off",
+    "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
   },
 }

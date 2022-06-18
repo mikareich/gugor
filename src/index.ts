@@ -1,15 +1,20 @@
 import "dotenv/config"
-import handleMessage from "./Discord/handleMessage"
-import Waypoint from "./CommandModules/Waypoint"
-import Julia from "./CommandModules/Julia"
+import { Waypoint } from "./Commands"
 import client from "./Discord/client"
+import handleInteraction from "./Discord/handleInteraction"
+import registerCommands from "./utils/registerCommands"
+
+const commands = [new Waypoint()]
+
+registerCommands(commands)
 
 client.on("ready", () => {
-  // sendMessage("Hello World!")
   console.log("Ready!")
 })
 
-const commandModules = [new Waypoint(), new Julia()]
-client.on("message", (message) => {
-  handleMessage(message, commandModules)
-})
+client.on("interactionCreate", async (interaction) =>
+  handleInteraction(interaction, commands)
+)
+
+const { DISCORD_TOKEN } = process.env
+client.login(DISCORD_TOKEN!)
