@@ -5,7 +5,6 @@ import handleInteraction from "./Discord/handleInteraction"
 import registerCommands from "./utils/registerCommands"
 
 const commands = [new Waypoint()]
-
 registerCommands(commands)
 
 client.on("ready", () => {

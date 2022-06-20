@@ -21,6 +21,9 @@ export interface CommandOption {
 
   /** Whether option is required */
   required?: boolean
+
+  /** Possible answeres */
+  choices?: { name: string; value: string }[]
 }
 
 export const ALL_OPTION_TYPES = [

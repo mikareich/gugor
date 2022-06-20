@@ -1,4 +1,4 @@
-import { codeBlock, inlineCode } from "@discordjs/builders"
+import { inlineCode } from "@discordjs/builders"
 import { CommandInteraction, CacheType } from "discord.js"
 import { CommandOption } from "../utils/CommandOption"
 import Subcommand from "../utils/Subcommand"
@@ -29,6 +29,25 @@ class CreateWaypoint extends Subcommand {
         description: "Z coordinate of the waypoint.",
         type: "INTEGER",
         required: true,
+      },
+      {
+        name: "dimension",
+        description: "Dimension of the waypoint.",
+        type: "STRING",
+        choices: [
+          {
+            name: "Overworld",
+            value: "overworld",
+          },
+          {
+            name: "Nether",
+            value: "nether",
+          },
+          {
+            name: "End",
+            value: "end",
+          },
+        ],
       },
     ]
 
