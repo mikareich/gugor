@@ -1,6 +1,6 @@
 import { Interaction } from "discord.js"
-import Command from "../Commands/utils/Command"
-import ErrorHandler from "../ErrorHandling/ErrorHandler"
+import Command from "../commands/utils/Command"
+import ErrorHandler from "../errorHandler/ErrorHandler"
 
 async function handleInteraction(
   interaction: Interaction,
