@@ -1,5 +1,6 @@
-import { inlineCode } from "@discordjs/builders"
 import { CommandInteraction, CacheType } from "discord.js"
+import ErrorHandler from "../../errorHandler/ErrorHandler"
+import Waypoint from "../../models/Waypoint"
 import { CommandOption } from "../utils/CommandOption"
 import Subcommand from "../utils/Subcommand"
 
@@ -17,10 +18,26 @@ class DeleteWaypoint extends Subcommand {
     super("delete", "Deletes a waypoint.", options)
   }
 
-  execute(interaction: CommandInteraction<CacheType>): void | Promise<void> {
+  async execute(interaction: CommandInteraction<CacheType>) {
+    await interaction.deferReply()
+
     const name = interaction.options.getString("name")!
-    // interact with db
-    interaction.reply(`Waypoint ${inlineCode(name)} deleted.`)
+
+    try {
+      const waypoint = await Waypoint.findOne({ name })
+      if (!waypoint) throw new Error("Waypoint not found.")
+
+      await waypoint.delete()
+
+      interaction.editReply(`Waypoint ${waypoint.name} deleted.`)
+    } catch (error) {
+      console.error(error)
+
+      if (error instanceof Error) {
+        console.log(interaction.replied)
+        await ErrorHandler.custom(error.message, interaction, true)
+      }
+    }
   }
 }
 

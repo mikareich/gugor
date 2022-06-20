@@ -1,5 +1,7 @@
-import { inlineCode } from "@discordjs/builders"
 import { CommandInteraction, CacheType } from "discord.js"
+import ErrorHandler from "../../errorHandler/ErrorHandler"
+import Waypoint from "../../models/Waypoint"
+import waypointToString from "../../utils/waypointToString"
 import { CommandOption } from "../utils/CommandOption"
 import Subcommand from "../utils/Subcommand"
 
@@ -17,14 +19,21 @@ class GetWaypoint extends Subcommand {
     super("get", "Returns coordinates of a waypoint", options)
   }
 
-  execute(interaction: CommandInteraction<CacheType>): void | Promise<void> {
+  async execute(interaction: CommandInteraction<CacheType>) {
+    await interaction.deferReply()
+
     const name = interaction.options.getString("name")!
-    // interact with db
-    interaction.reply(
-      `Waypoint ${inlineCode(name)} with coordinates: ${inlineCode(
-        `(${100},${0},${200})`
-      )}`
-    )
+
+    try {
+      const waypoint = await Waypoint.findOne({ name })
+      if (!waypoint) throw new Error("Waypoint not found.")
+
+      await interaction.editReply(waypointToString(waypoint))
+    } catch (error) {
+      if (error instanceof Error) {
+        await ErrorHandler.custom(error.message, interaction, true)
+      }
+    }
   }
 }
 

@@ -18,23 +18,36 @@ class ErrorHandler {
       message: "Command not found",
       code: 2,
     },
+    {
+      name: "UknownError",
+      message: "Oh snap! An unknown error occurred.",
+      code: 3,
+    },
   ]
 
   public static withCode(
     code: number,
-    sendFeedback?: CommandInteraction
+    interaction?: CommandInteraction
   ): Error | undefined {
     const error = ErrorHandler.Errors.find((e) => e.code === code)
 
-    if (!error) return ErrorHandler.withCode(1, sendFeedback)
+    if (!error) return ErrorHandler.withCode(1, interaction)
 
-    sendFeedback?.reply(error.message)
+    interaction?.reply(error.message)
 
     return error
   }
 
-  public static custom(message: string, sendFeedback?: CommandInteraction) {
-    sendFeedback?.reply(message)
+  public static async custom(
+    message: string,
+    interaction: CommandInteraction,
+    replied = false
+  ) {
+    if (replied) {
+      await interaction.editReply(message)
+    } else {
+      await interaction.reply(message)
+    }
   }
 }
 

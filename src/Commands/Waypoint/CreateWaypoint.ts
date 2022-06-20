@@ -1,5 +1,6 @@
-import { inlineCode } from "@discordjs/builders"
 import { CommandInteraction, CacheType } from "discord.js"
+import ErrorHandler from "../../errorHandler/ErrorHandler"
+import Waypoint from "../../models/Waypoint"
 import { CommandOption } from "../utils/CommandOption"
 import Subcommand from "../utils/Subcommand"
 
@@ -54,10 +55,34 @@ class CreateWaypoint extends Subcommand {
     super("create", "Creates a waypoint.", options)
   }
 
-  execute(interaction: CommandInteraction<CacheType>): void | Promise<void> {
+  async execute(interaction: CommandInteraction<CacheType>) {
+    await interaction.deferReply()
+
     const name = interaction.options.getString("name")!
-    // interact with db
-    interaction.reply(`Creating waypoint ${inlineCode(name)}`)
+    const x = Number(interaction.options.getInteger("x")!)
+    const y = Number(interaction.options.getInteger("y")!)
+    const z = Number(interaction.options.getInteger("z")!)
+    const dimension = interaction.options.getString("dimension") || "overworld"
+
+    try {
+      await Waypoint.create({
+        name,
+        dimension,
+        coordinates: {
+          x,
+          y,
+          z,
+        },
+      })
+
+      interaction.editReply(`Waypoint ${name} created.`)
+    } catch (error) {
+      console.log(error)
+
+      if (error instanceof Error) {
+        ErrorHandler.custom(error.message, interaction, true)
+      }
+    }
   }
 }
 
