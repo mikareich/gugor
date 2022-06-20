@@ -8,6 +8,7 @@ export interface ApplicationCommandObject {
   options?: ApplicationCommandObject[]
   type?: number
   required?: boolean
+  choices?: { name: string; value: string }[]
 }
 
 /** Parses (sub)command to JSON Object */
@@ -27,12 +28,16 @@ function toAppilcationCommandObject(
   }
 
   // add options
-  command.options.forEach(({ name, description, type, required }) => {
+  command.options.forEach(({ name, description, type, required, choices }) => {
     const option: ApplicationCommandObject = {
       name,
       description,
       required: required || false,
       type: ALL_OPTION_TYPES.indexOf(type) + 1,
+    }
+
+    if (choices && (type === "STRING" || type === "INTEGER")) {
+      option.choices = choices
     }
 
     options.push(option)
