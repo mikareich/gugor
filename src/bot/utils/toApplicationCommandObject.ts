@@ -1,4 +1,4 @@
-import { ApplicationCommandObject } from "../../../interfaces"
+import { ApplicationCommandObject } from "../../interfaces"
 import Command from "./Command"
 import ALL_OPTION_TYPES from "./allCommandOptionTypes"
 import Subcommand from "./Subcommand"

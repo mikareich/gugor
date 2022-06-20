@@ -1,4 +1,4 @@
-import Command from "../utils/Command"
+import Command from "../../utils/Command"
 import CreateWaypoint from "./CreateWaypoint"
 import DeleteWaypoint from "./DeleteWaypoint"
 import GetWaypoint from "./GetWaypoint"

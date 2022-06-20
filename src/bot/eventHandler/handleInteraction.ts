@@ -1,5 +1,5 @@
 import { Interaction } from "discord.js"
-import Command from "../commands/utils/Command"
+import Command from "../utils/Command"
 import ErrorHandler from "../errorHandler/ErrorHandler"
 
 /**

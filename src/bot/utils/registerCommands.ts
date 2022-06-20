@@ -1,6 +1,6 @@
 import { REST } from "@discordjs/rest"
 import { Routes } from "discord-api-types/v9"
-import Command from "../commands/utils/Command"
+import Command from "./Command"
 
 const { DC_TOKEN, DC_CLIENT_ID, DC_FLUFFY_TUFFYS_GUILD_ID } = process.env
 
