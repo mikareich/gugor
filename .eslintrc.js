@@ -15,5 +15,6 @@ module.exports = {
     "import/extensions": "off",
     "class-methods-use-this": "off",
     "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    "no-console": "off",
   },
 }

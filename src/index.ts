@@ -1,9 +1,9 @@
 import "dotenv/config"
-import { Waypoint } from "./commands"
-import client from "./discord/client"
-import handleInteraction from "./discord/handleInteraction"
-import connectDB from "./utils/connectDB"
-import registerCommands from "./utils/registerCommands"
+import { Waypoint } from "./bot/commands"
+import client from "./bot/discord/client"
+import handleInteraction from "./bot/discord/handleInteraction"
+import connectDB from "./database/utils/connectDB"
+import registerCommands from "./bot/utils/registerCommands"
 
 const commands = [new Waypoint()]
 registerCommands(commands)

@@ -1,6 +1,6 @@
-import { CommandInteraction, CacheType } from "discord.js"
+import { CommandInteraction } from "discord.js"
 import ErrorHandler from "../../errorHandler/ErrorHandler"
-import Waypoint from "../../models/Waypoint"
+import Waypoint from "../../../database/models/Waypoint"
 import { CommandOption } from "../utils/CommandOption"
 import Subcommand from "../utils/Subcommand"
 
@@ -55,7 +55,7 @@ class CreateWaypoint extends Subcommand {
     super("create", "Creates a waypoint.", options)
   }
 
-  async execute(interaction: CommandInteraction<CacheType>) {
+  async execute(interaction: CommandInteraction) {
     await interaction.deferReply()
 
     const name = interaction.options.getString("name")!
