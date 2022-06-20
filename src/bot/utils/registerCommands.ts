@@ -4,6 +4,10 @@ import Command from "../commands/utils/Command"
 
 const { DC_TOKEN, DC_CLIENT_ID, DC_FLUFFY_TUFFYS_GUILD_ID } = process.env
 
+/**
+ * Registers commands with the Discord REST API.
+ * @param commands - An array of commands to register.
+ */
 async function registerCommands(commands: Command[]) {
   const rest = new REST({ version: "9" }).setToken(DC_TOKEN!)
 

@@ -1,17 +1,12 @@
+import { ApplicationCommandObject } from "../../../interfaces"
 import Command from "./Command"
-import { ALL_OPTION_TYPES } from "./CommandOption"
+import ALL_OPTION_TYPES from "./allCommandOptionTypes"
 import Subcommand from "./Subcommand"
 
-export interface ApplicationCommandObject {
-  name: string
-  description: string
-  options?: ApplicationCommandObject[]
-  type?: number
-  required?: boolean
-  choices?: { name: string; value: string }[]
-}
-
-/** Parses (sub)command to JSON Object */
+/** Parses (sub)command to JSON Object
+ * @param command Command to parse
+ * @returns JSON Object
+ */
 function toAppilcationCommandObject(
   command: Command | Subcommand
 ): ApplicationCommandObject {
@@ -36,6 +31,7 @@ function toAppilcationCommandObject(
       type: ALL_OPTION_TYPES.indexOf(type) + 1,
     }
 
+    // adds choices to option if option is of type "STRING" or "INTEGER"
     if (choices && (type === "STRING" || type === "INTEGER")) {
       option.choices = choices
     }

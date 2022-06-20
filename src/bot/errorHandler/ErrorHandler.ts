@@ -1,33 +1,31 @@
 import { CommandInteraction } from "discord.js"
-
-interface Error {
-  name: string
-  message: string
-  code: number
-}
+import { Error } from "../../interfaces/index"
 
 class ErrorHandler {
   public static Errors: Error[] = [
     {
-      name: "ErrorNotFound",
       message: "Error not found",
       code: 1,
     },
     {
-      name: "CommandNotFound",
       message: "Command not found",
       code: 2,
     },
     {
-      name: "UknownError",
       message: "Oh snap! An unknown error occurred.",
       code: 3,
     },
   ]
 
+  /**
+   * Replies with an error message.
+   * @param code Code of the error
+   * @param interaction Interaction Object
+   * @returns Error Object
+   */
   public static withCode(
     code: number,
-    interaction?: CommandInteraction
+    interaction: CommandInteraction
   ): Error | undefined {
     const error = ErrorHandler.Errors.find((e) => e.code === code)
 
@@ -38,6 +36,12 @@ class ErrorHandler {
     return error
   }
 
+  /**
+   * Replies with an error custom message.
+   * @param message Message of the error
+   * @param interaction Interaction Object
+   * @param replied Whether the interaction has been replied to
+   */
   public static async custom(
     message: string,
     interaction: CommandInteraction,

@@ -2,8 +2,8 @@ import { CommandInteraction } from "discord.js"
 import ErrorHandler from "../../errorHandler/ErrorHandler"
 import Waypoint from "../../../database/models/Waypoint"
 import convertWaypointObject from "../../utils/convertWaypointObject"
-import { CommandOption } from "../utils/CommandOption"
 import Subcommand from "../utils/Subcommand"
+import { CommandOption } from "../../../interfaces"
 
 class GetWaypoint extends Subcommand {
   constructor() {

@@ -1,10 +1,8 @@
 import { CommandInteraction } from "discord.js"
-import { CommandOption } from "./CommandOption"
-import toAppilcationCommandObject, {
-  ApplicationCommandObject,
-} from "./toApplicationCommandObject"
+import { ApplicationCommandObject, CommandOption } from "../../../interfaces"
+import toAppilcationCommandObject from "./toApplicationCommandObject"
 
-export declare interface ISubcommand {
+export declare interface SubcommandDeclaration {
   /** Name of the command */
   readonly name: string
 
@@ -21,7 +19,7 @@ export declare interface ISubcommand {
   toACO(): ApplicationCommandObject
 }
 
-class Subcommand implements ISubcommand {
+class Subcommand implements SubcommandDeclaration {
   public name: string
 
   public description: string

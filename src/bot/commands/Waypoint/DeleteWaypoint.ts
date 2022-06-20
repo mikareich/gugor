@@ -1,8 +1,8 @@
-import { CommandInteraction, CacheType } from "discord.js"
+import { CommandInteraction } from "discord.js"
 import ErrorHandler from "../../errorHandler/ErrorHandler"
 import Waypoint from "../../../database/models/Waypoint"
-import { CommandOption } from "../utils/CommandOption"
 import Subcommand from "../utils/Subcommand"
+import { CommandOption } from "../../../interfaces"
 
 class DeleteWaypoint extends Subcommand {
   constructor() {

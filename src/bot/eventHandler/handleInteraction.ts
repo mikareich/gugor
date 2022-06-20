@@ -2,6 +2,11 @@ import { Interaction } from "discord.js"
 import Command from "../commands/utils/Command"
 import ErrorHandler from "../errorHandler/ErrorHandler"
 
+/**
+ * Assigns commands to interactions and executes them.
+ * @param interaction Interaction Object
+ * @param commands Array of Command Objects
+ */
 async function handleInteraction(
   interaction: Interaction,
   commands: Command[]
