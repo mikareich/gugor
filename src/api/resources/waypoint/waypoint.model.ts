@@ -1,16 +1,7 @@
 import { model, Schema } from "mongoose"
+import { Waypoint } from "../../../interfaces"
 
-export interface IWaypoint {
-  name: string
-  dimension: "overworld" | "nether" | "end"
-  coordinates: {
-    x: number
-    y: number
-    z: number
-  }
-}
-
-export const WaypointSchema = new Schema(
+const WaypointSchema = new Schema(
   {
     name: {
       type: String,
@@ -37,4 +28,4 @@ export const WaypointSchema = new Schema(
   }
 )
 
-export default model<IWaypoint>("Waypoint", WaypointSchema)
+export default model<Waypoint>("Waypoint", WaypointSchema)

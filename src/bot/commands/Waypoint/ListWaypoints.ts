@@ -1,8 +1,9 @@
 import { CommandInteraction } from "discord.js"
+import axios from "axios"
 import ErrorHandler from "../../errorHandler/ErrorHandler"
-import Waypoint from "../../../database/models/Waypoint"
 import convertWaypointObject from "../../utils/convertWaypointObject"
 import Subcommand from "../../utils/Subcommand"
+import route from "../../../api/utils/route"
 
 class GetWaypoint extends Subcommand {
   constructor() {
@@ -13,10 +14,10 @@ class GetWaypoint extends Subcommand {
     await interaction.deferReply()
 
     try {
-      const waypoints = await Waypoint.find()
-      if (waypoints.length === 0) throw new Error("No waypoints found.")
-
-      const waypointList = waypoints.map(convertWaypointObject)
+      const waypointList = await axios
+        .get(route("/waypoint"))
+        .then((res) => res.data)
+        .then((waypoints) => waypoints.map(convertWaypointObject))
 
       interaction.editReply(`${waypointList.join("\n\n")}`)
     } catch (error) {

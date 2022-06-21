@@ -1,8 +1,10 @@
 import { CommandInteraction } from "discord.js"
+import axios from "axios"
 import ErrorHandler from "../../errorHandler/ErrorHandler"
-import Waypoint from "../../../database/models/Waypoint"
 import Subcommand from "../../utils/Subcommand"
 import { CommandOption } from "../../../interfaces"
+import route from "../../../api/utils/route"
+import logCLI from "../../../utils/logMessage"
 
 class DeleteWaypoint extends Subcommand {
   constructor() {
@@ -24,17 +26,13 @@ class DeleteWaypoint extends Subcommand {
     const name = interaction.options.getString("name")!
 
     try {
-      const waypoint = await Waypoint.findOne({ name })
-      if (!waypoint) throw new Error("Waypoint not found.")
+      await axios.delete(route(`/waypoint/${name}`))
 
-      await waypoint.delete()
-
-      interaction.editReply(`Waypoint ${waypoint.name} deleted.`)
+      interaction.editReply(`Waypoint ${name} deleted.`)
     } catch (error) {
-      console.error(error)
+      logCLI(error, "error")
 
       if (error instanceof Error) {
-        console.log(interaction.replied)
         await ErrorHandler.custom(error.message, interaction, true)
       }
     }

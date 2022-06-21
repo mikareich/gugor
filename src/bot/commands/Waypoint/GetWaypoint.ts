@@ -1,9 +1,10 @@
 import { CommandInteraction } from "discord.js"
+import axios from "axios"
 import ErrorHandler from "../../errorHandler/ErrorHandler"
-import Waypoint from "../../../database/models/Waypoint"
 import convertWaypointObject from "../../utils/convertWaypointObject"
 import Subcommand from "../../utils/Subcommand"
 import { CommandOption } from "../../../interfaces"
+import route from "../../../api/utils/route"
 
 class GetWaypoint extends Subcommand {
   constructor() {
@@ -25,10 +26,12 @@ class GetWaypoint extends Subcommand {
     const name = interaction.options.getString("name")!
 
     try {
-      const waypoint = await Waypoint.findOne({ name })
-      if (!waypoint) throw new Error("Waypoint not found.")
+      const waypoint = await axios
+        .get(route(`/waypoint/${name}`))
+        .then((res) => res.data)
+        .then(convertWaypointObject)
 
-      await interaction.editReply(convertWaypointObject(waypoint))
+      await interaction.editReply(waypoint)
     } catch (error) {
       if (error instanceof Error) {
         await ErrorHandler.custom(error.message, interaction, true)
