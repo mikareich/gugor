@@ -8,6 +8,8 @@ const app = express()
 
 app.use(json())
 
+app.get("/", (req, res) => res.send("Hey welcome"))
+
 app.use("/api/waypoint", waypointRouter)
 
 export default async function startServer() {
