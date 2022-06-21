@@ -13,15 +13,17 @@ interface CreateWaypointBody {
 }
 
 export async function getWaypoint(
-  req: Request<{ name: string }>,
+  req: Request<{}, {}, { name?: string }>,
   res: Response
 ) {
   try {
-    const { name } = req.params
+    const { name } = req.body
 
-    if (!name) throw new Error("Name is required.")
+    const query = name ? { name } : {}
 
-    const waypoint = await Waypoint.findOne({ name })
+    console.log(query)
+
+    const waypoint = await Waypoint.find(query)
     if (!waypoint) throw new Error("Waypoint not found.")
 
     res.status(200).json(waypoint)
@@ -35,7 +37,7 @@ export async function getWaypoint(
 }
 
 export async function getAllWaypoints(
-  req: Request<{}, {}, {}>,
+  req: Request,
   res: Response
 ): Promise<void> {
   try {
@@ -80,11 +82,11 @@ export async function createWaypoint(
 }
 
 export async function deleteWaypoint(
-  req: Request<{ name: string }>,
+  req: Request<{}, {}, { name?: string }>,
   res: Response
 ): Promise<void> {
   try {
-    const { name } = req.params
+    const { name } = req.body
 
     if (!name) throw new Error("Name is required.")
 
