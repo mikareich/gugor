@@ -2,7 +2,7 @@ import express, { json } from "express"
 import cors from "cors"
 import connectDB from "./utils/connectDB"
 import waypointRouter from "./resources/waypoint/waypoint.router"
-import logCLI from "../utils/logMessage"
+import logCLI from "../utils/logCLI"
 
 const PORT = process.env.PORT || 3000
 const app = express()
@@ -14,7 +14,7 @@ app.get("/", (req, res) => res.send("Hey welcome"))
 
 app.use("/api/waypoint", waypointRouter)
 
-export default async function startServer() {
+async function startServer() {
   await connectDB()
 
   try {
@@ -25,3 +25,5 @@ export default async function startServer() {
     logCLI(error, "error")
   }
 }
+
+export default startServer

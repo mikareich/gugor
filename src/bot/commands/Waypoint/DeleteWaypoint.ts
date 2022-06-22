@@ -4,7 +4,7 @@ import ErrorHandler from "../../errorHandler/ErrorHandler"
 import Subcommand from "../../utils/Subcommand"
 import { CommandOption } from "../../../interfaces"
 import route from "../../../api/utils/route"
-import logCLI from "../../../utils/logMessage"
+import logCLI from "../../../utils/logCLI"
 
 class DeleteWaypoint extends Subcommand {
   constructor() {

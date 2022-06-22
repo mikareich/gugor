@@ -1,7 +1,8 @@
-import logCLI from "./logMessage"
+import "dotenv/config"
+import logCLI from "./logCLI"
 
 const {
-  NODE_ENV,
+  DEV_ENV,
   PORT,
   DEV_API_URI,
   PROD_API_URI,
@@ -28,7 +29,7 @@ if (
 
 export default {
   /** Node environment */
-  NODE_ENV,
+  NODE_ENV: DEV_ENV,
   /** Port to listen on */
   PORT,
   /** Development API URI */

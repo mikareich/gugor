@@ -1,5 +1,5 @@
 import { Client, Intents } from "discord.js"
-import logCLI from "../../utils/logMessage"
+import logCLI from "../../utils/logCLI"
 import envVars from "../../utils/envVariables"
 
 /** Client object for the discord bot */

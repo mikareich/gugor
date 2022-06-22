@@ -1,6 +1,6 @@
 import { connect } from "mongoose"
 import envVariables from "../../utils/envVariables"
-import logCLI from "../../utils/logMessage"
+import logCLI from "../../utils/logCLI"
 
 /** Connects with the gugor database */
 async function connectDB() {
