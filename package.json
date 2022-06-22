@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "dev:bot": "DEV_ENV=true nodemon --watch src --exec ts-node src/bot/index.ts",
-    "dev:server": "DEV_ENV=true nodemon --watch src --exec ts-node src/server/index.ts",
+    "dev:server": "DEV_ENV=true nodemon --watch src --exec ts-node src/api/index.ts",
     "dev": "DEV_ENV=true nodemon --watch src --exec ts-node src/index.ts ",
     "start": "node index.js",
     "types": "tsc",
