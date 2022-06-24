@@ -11,6 +11,6 @@ router.get("/", getWaypoint)
 
 router.post("/", createWaypoint)
 
-router.delete("/", deleteWaypoint)
+router.delete("/delte", deleteWaypoint)
 
 export default router

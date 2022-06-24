@@ -7,8 +7,8 @@ import logCLI from "../utils/logCLI"
 const PORT = process.env.PORT || 3000
 const app = express()
 
-app.use(json())
 app.use(cors())
+app.use(json())
 
 app.get("/", (req, res) => res.send("Hey welcome"))
 
