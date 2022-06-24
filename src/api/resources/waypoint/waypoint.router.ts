@@ -9,8 +9,8 @@ const router = Router()
 
 router.get("/", getWaypoint)
 
-router.post("/", createWaypoint)
+router.post("/create", createWaypoint)
 
-router.delete("/delte", deleteWaypoint)
+router.delete("/delete", deleteWaypoint)
 
 export default router
