@@ -27,10 +27,13 @@ class DeleteWaypoint extends Subcommand {
 
     try {
       const waypoint = (await axios
-        .get(route("/waypoint"))
+        .get(route("/waypoint"), {
+          data: {
+            name,
+          },
+          headers: { Authorization: "***" },
+        })
         .then((res) => res.data[0])) as Waypoint
-
-      console.log(waypoint)
 
       if (!waypoint) {
         interaction.editReply("Waypoint not found")
