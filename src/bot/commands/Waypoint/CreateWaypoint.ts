@@ -78,10 +78,7 @@ class CreateWaypoint extends Subcommand {
     }
 
     try {
-      await axios.post(route("/waypoint"), {
-        data: waypoint,
-        headers: { Authorization: "***" },
-      })
+      await axios.post(route("/waypoint"), waypoint)
 
       interaction.editReply(`Waypoint ${name} created.`)
     } catch (error) {
