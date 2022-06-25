@@ -11,6 +11,7 @@ const API_URI =
  * @returns Absolute URI to the API.
  */
 function route(apiRoute: string) {
+  console.log(API_URI)
   return `${API_URI}${apiRoute}`
 }
 
