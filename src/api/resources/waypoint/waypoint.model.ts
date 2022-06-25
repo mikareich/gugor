@@ -15,9 +15,27 @@ const WaypointSchema = new Schema(
     },
     coordinates: {
       type: {
-        x: Number,
-        y: Number,
-        z: Number,
+        x: {
+          type: Number,
+          validate: {
+            validator: Number.isInteger,
+            message: "{VALUE} is not an integer value",
+          },
+        },
+        y: {
+          type: Number,
+          validate: {
+            validator: Number.isInteger,
+            message: "{VALUE} is not an integer value",
+          },
+        },
+        z: {
+          type: Number,
+          validate: {
+            validator: Number.isInteger,
+            message: "{VALUE} is not an integer value",
+          },
+        },
       },
       required: true,
     },
