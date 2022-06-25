@@ -2,7 +2,7 @@ import "dotenv/config"
 import logCLI from "./logCLI"
 
 const {
-  DEV_ENV,
+  NODE_ENV,
   PORT,
   DEV_API_URI,
   PROD_API_URI,
@@ -29,7 +29,7 @@ if (
 
 export default {
   /** Node environment */
-  NODE_ENV: DEV_ENV,
+  NODE_ENV,
   /** Port to listen on */
   PORT,
   /** Development API URI */
