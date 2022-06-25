@@ -28,7 +28,7 @@ class DeleteWaypoint extends Subcommand {
     try {
       const waypoint = (await axios
         .get(route("/waypoint"))
-        .then((res) => res.data)) as Waypoint
+        .then((res) => res.data[0])) as Waypoint
 
       await axios.delete(route(`/waypoint`), {
         data: {

@@ -33,7 +33,7 @@ class GetWaypoint extends Subcommand {
           },
           headers: { Authorization: "***" },
         })
-        .then((res) => res.data)
+        .then((res) => res.data[0])
         .then(convertWaypointObject)
 
       await interaction.editReply(waypoint)
