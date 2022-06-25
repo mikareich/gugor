@@ -11,7 +11,5 @@ const commands = [new Waypoint()]
 Promise.all([startBot(commands), startServer()]).then(() => {
   logCLI("All modules loaded.", "success")
 
-  botClient.on("interactionCreate", async (interaction) =>
-    handleInteraction(interaction, commands)
-  )
+
 })

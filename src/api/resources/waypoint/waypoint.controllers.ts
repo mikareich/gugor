@@ -37,6 +37,7 @@ export async function getWaypoint(
   req: Request<{}, {}, WaypointQuery>,
   res: Response
 ) {
+  console.log("get waypoint")
   try {
     const query = req.body
 

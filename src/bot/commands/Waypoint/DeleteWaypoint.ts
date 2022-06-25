@@ -2,7 +2,7 @@ import { CommandInteraction } from "discord.js"
 import axios from "axios"
 import ErrorHandler from "../../errorHandler/ErrorHandler"
 import Subcommand from "../../utils/Subcommand"
-import { CommandOption } from "../../../interfaces"
+import { CommandOption, Waypoint } from "../../../interfaces"
 import route from "../../../api/utils/route"
 import logCLI from "../../../utils/logCLI"
 
@@ -26,7 +26,16 @@ class DeleteWaypoint extends Subcommand {
     const name = interaction.options.getString("name")!
 
     try {
-      await axios.delete(route(`/waypoint/${name}`))
+      const waypoint = (await axios
+        .get(route("/waypoint"))
+        .then((res) => res.data)) as Waypoint
+
+      await axios.delete(route(`/waypoint`), {
+        data: {
+          id: waypoint._id,
+        },
+        headers: { Authorization: "***" },
+      })
 
       interaction.editReply(`Waypoint ${name} deleted.`)
     } catch (error) {

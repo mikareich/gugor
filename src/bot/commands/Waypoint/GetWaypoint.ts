@@ -27,7 +27,12 @@ class GetWaypoint extends Subcommand {
 
     try {
       const waypoint = await axios
-        .get(route(`/waypoint/${name}`))
+        .get(route(`/waypoint`), {
+          data: {
+            name,
+          },
+          headers: { Authorization: "***" },
+        })
         .then((res) => res.data)
         .then(convertWaypointObject)
 

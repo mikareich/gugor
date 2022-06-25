@@ -2,7 +2,7 @@ import { CommandInteraction } from "discord.js"
 import axios from "axios"
 import ErrorHandler from "../../errorHandler/ErrorHandler"
 import Subcommand from "../../utils/Subcommand"
-import { CommandOption, Waypoint, WorldDimension } from "../../../interfaces"
+import { CommandOption, WorldDimension } from "../../../interfaces"
 import route from "../../../api/utils/route"
 import logCLI from "../../../utils/logCLI"
 
@@ -67,7 +67,7 @@ class CreateWaypoint extends Subcommand {
     const dimension =
       <WorldDimension>interaction.options.getString("dimension") || "overworld"
 
-    const waypoint: Waypoint = {
+    const waypoint = {
       name,
       dimension,
       coordinates: {
@@ -78,7 +78,10 @@ class CreateWaypoint extends Subcommand {
     }
 
     try {
-      await axios.post(route("/waypoint/new"), waypoint)
+      await axios.post(route("/waypoint"), {
+        data: waypoint,
+        headers: { Authorization: "***" },
+      })
 
       interaction.editReply(`Waypoint ${name} created.`)
     } catch (error) {
