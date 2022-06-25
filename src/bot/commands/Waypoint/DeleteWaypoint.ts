@@ -30,6 +30,11 @@ class DeleteWaypoint extends Subcommand {
         .get(route("/waypoint"))
         .then((res) => res.data[0])) as Waypoint
 
+      if (!waypoint) {
+        interaction.editReply("Waypoint not found")
+        return
+      }
+
       await axios.delete(route(`/waypoint`), {
         data: {
           id: waypoint._id,
