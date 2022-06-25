@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose"
 import { Waypoint } from "../../../interfaces"
-import Integer from "../../utils/integer"
+import Integer from "../../utils/Integer"
 
 const WaypointSchema = new Schema(
   {
