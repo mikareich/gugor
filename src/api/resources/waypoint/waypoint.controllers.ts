@@ -12,16 +12,9 @@ interface CreateWaypointBody {
   }
 }
 
-export async function getWaypoint(
-  req: Request<{}, {}, { name?: string }>,
-  res: Response
-) {
+export async function getWaypoint(req: Request<{}, {}, any>, res: Response) {
   try {
-    const { name } = req.body
-
-    const query = name ? { name } : {}
-
-    console.log(query)
+    const query = req.body
 
     const waypoint = await Waypoint.find(query)
     if (!waypoint) throw new Error("Waypoint not found.")
