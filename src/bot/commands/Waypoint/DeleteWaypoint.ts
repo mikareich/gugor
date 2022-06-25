@@ -30,6 +30,8 @@ class DeleteWaypoint extends Subcommand {
         .get(route("/waypoint"))
         .then((res) => res.data[0])) as Waypoint
 
+      console.log(waypoint)
+
       if (!waypoint) {
         interaction.editReply("Waypoint not found")
         return
