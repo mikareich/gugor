@@ -1,68 +1,27 @@
 import { Request, Response } from "express"
+import {
+  IDQuery,
+  Waypoint as IWaypoint,
+  WorldDimension,
+} from "../../../interfaces"
 import Waypoint from "./waypoint.model"
-import { WaypointDimension } from "../../../interfaces"
 
-interface CreateWaypointBody {
+interface WaypointQuery {
   name?: string
-  dimension?: WaypointDimension
-  coordinates?: {
-    x?: number
-    y?: number
-    z?: number
-  }
-}
-
-export async function getWaypoint(req: Request<{}, {}, any>, res: Response) {
-  try {
-    const query = req.body
-
-    const waypoint = await Waypoint.find(query)
-    if (!waypoint) throw new Error("Waypoint not found.")
-
-    res.status(200).json(waypoint)
-  } catch (error) {
-    console.error(error)
-
-    if (error instanceof Error) {
-      res.status(400).json({ error: error.message })
-    }
-  }
-}
-
-export async function getAllWaypoints(
-  req: Request,
-  res: Response
-): Promise<void> {
-  try {
-    const waypoints = await Waypoint.find()
-    if (waypoints.length === 0) throw new Error("No waypoints found.")
-
-    res.status(200).json(waypoints)
-  } catch (error) {
-    console.error(error)
-
-    if (error instanceof Error) {
-      res.status(400).json({ error: error.message })
-    }
-  }
+  dimension?: WorldDimension
+  "coordinates.x"?: number
+  "coordinates.y"?: number
+  "coordinates.z"?: number
 }
 
 export async function createWaypoint(
-  req: Request<{}, {}, CreateWaypointBody>,
+  req: Request<{}, {}, IWaypoint>,
   res: Response
 ) {
   try {
-    const { name, dimension, coordinates } = req.body
+    const waypointData = req.body
 
-    if (!name) throw new Error("Name is required.")
-    if (!dimension) throw new Error("Dimension is required.")
-    if (!coordinates) throw new Error("Coordinates are required.")
-
-    const waypoint = await Waypoint.create({
-      name,
-      dimension,
-      coordinates,
-    })
+    const waypoint = await Waypoint.create(waypointData)
 
     res.status(201).json(waypoint)
   } catch (error) {
@@ -74,21 +33,37 @@ export async function createWaypoint(
   }
 }
 
+export async function getWaypoint(
+  req: Request<{}, {}, WaypointQuery>,
+  res: Response
+) {
+  try {
+    const query = req.body
+
+    const waypoints = await Waypoint.find(query)
+
+    res.status(200).json(waypoints)
+  } catch (error) {
+    console.error(error)
+
+    if (error instanceof Error) {
+      res.status(400).json({ error: error.message })
+    }
+  }
+}
+
 export async function deleteWaypoint(
-  req: Request<{}, {}, { name?: string }>,
+  req: Request<{}, {}, IDQuery>,
   res: Response
 ): Promise<void> {
   try {
-    const { name } = req.body
+    const { id } = req.body
 
-    if (!name) throw new Error("Name is required.")
+    const waypoint = await Waypoint.findByIdAndDelete(id)
 
-    const waypoint = await Waypoint.findOne({ name })
-    if (!waypoint) throw new Error("Waypoint not found.")
+    if (!waypoint) throw new Error(`Waypoint with id ${id} not found.`)
 
-    await waypoint.delete()
-
-    res.status(200).json({ message: `Waypoint ${name} deleted.` })
+    res.status(200).json({ message: `Waypoint with id ${id} deleted.` })
   } catch (error) {
     console.error(error)
 

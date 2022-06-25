@@ -2,7 +2,7 @@ import { CommandInteraction } from "discord.js"
 import axios from "axios"
 import ErrorHandler from "../../errorHandler/ErrorHandler"
 import Subcommand from "../../utils/Subcommand"
-import { CommandOption, Waypoint, WaypointDimension } from "../../../interfaces"
+import { CommandOption, Waypoint, WorldDimension } from "../../../interfaces"
 import route from "../../../api/utils/route"
 import logCLI from "../../../utils/logCLI"
 
@@ -65,8 +65,7 @@ class CreateWaypoint extends Subcommand {
     const y = Number(interaction.options.getInteger("y")!)
     const z = Number(interaction.options.getInteger("z")!)
     const dimension =
-      <WaypointDimension>interaction.options.getString("dimension") ||
-      "overworld"
+      <WorldDimension>interaction.options.getString("dimension") || "overworld"
 
     const waypoint: Waypoint = {
       name,

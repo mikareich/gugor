@@ -1,18 +1,66 @@
-/** World dimension of the waypoint */
-export type WaypointDimension = "overworld" | "nether" | "end"
+/** Querys by intern ID */
+export interface IDQuery {
+  /** Intern ID */
+  id: string
+}
 
-/** Specific position in a Minecraft world */
-export interface Waypoint {
-  /** Name of the waypoint */
-  name: string
-  /** World dimension of the waypoint */
-  dimension: WaypointDimension
-  /** Position of the waypoint */
+/** World dimensions of the Minecraft world */
+export type WorldDimension = "overworld" | "nether" | "end"
+
+/** Position in Minecraft world */
+interface Position {
+  /** World Dimension */
+  dimension: WorldDimension
+  /** Coordinates of the player */
   coordinates: {
     x: number
     y: number
     z: number
   }
+}
+
+/** Specific position in a Minecraft world */
+export interface Waypoint extends Position {
+  /** Intern ID of the waypoint */
+  _id: string
+  /** Name of the waypoint */
+  name: string
+  /** Creation date */
+  createdAt: string
+  /** Last time updated */
+  updatedAt: string
+}
+
+/** Different player roles */
+export type PlayerRole = "admin" | "operator" | "default"
+
+export interface PlayerStats {
+  /** How many times the player has already died in the Minecraft world */
+  numberOfDeaths?: number
+  /** Number of experience points */
+  xpLevel?: number
+  /** Position of the player in the Minecraft world */
+  position?: Position
+}
+
+/** Represents a Minecraft player */
+export interface Player {
+  /** Intern ID of the player */
+  _id: string
+  /** Discord id of the player */
+  discordID: string
+  /** Minecraft uuid */
+  minecraftUUID: string
+  /** Role of the player */
+  role: PlayerRole
+  /** Password */
+  password: string
+  /** Minecraft game stats */
+  stats: PlayerStats
+  /** Creation date */
+  createdAt: string
+  /** Last time updated */
+  updatedAt: string
 }
 
 /** Representation of an error */

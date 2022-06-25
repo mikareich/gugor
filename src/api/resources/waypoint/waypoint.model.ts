@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose"
 import { Waypoint } from "../../../interfaces"
+import Integer from "../../utils/integer"
 
 const WaypointSchema = new Schema(
   {
@@ -15,27 +16,9 @@ const WaypointSchema = new Schema(
     },
     coordinates: {
       type: {
-        x: {
-          type: Number,
-          validate: {
-            validator: Number.isInteger,
-            message: "{VALUE} is not an integer value",
-          },
-        },
-        y: {
-          type: Number,
-          validate: {
-            validator: Number.isInteger,
-            message: "{VALUE} is not an integer value",
-          },
-        },
-        z: {
-          type: Number,
-          validate: {
-            validator: Number.isInteger,
-            message: "{VALUE} is not an integer value",
-          },
-        },
+        x: Integer,
+        y: Integer,
+        z: Integer,
       },
       required: true,
     },
