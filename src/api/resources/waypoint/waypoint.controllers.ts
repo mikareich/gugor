@@ -18,6 +18,8 @@ export async function createWaypoint(
   req: Request<{}, {}, IWaypoint>,
   res: Response
 ) {
+  console.log(req.body)
+
   try {
     const waypointData = req.body
 
