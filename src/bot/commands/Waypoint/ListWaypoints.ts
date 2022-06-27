@@ -19,7 +19,9 @@ class GetWaypoint extends Subcommand {
         .then((res) => res.data)
         .then((waypoints) => waypoints.map(convertWaypointObject))
 
-      interaction.editReply(`${waypointList.join("\n\n")}`)
+      interaction.editReply(
+        `${waypointList.join("\n\n") || "No waypoints found."}`
+      )
     } catch (error) {
       console.error(error)
 

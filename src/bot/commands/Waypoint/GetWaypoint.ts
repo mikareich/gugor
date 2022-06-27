@@ -36,7 +36,7 @@ class GetWaypoint extends Subcommand {
         .then((res) => res.data[0])
         .then(convertWaypointObject)
 
-      await interaction.editReply(waypoint)
+      await interaction.editReply(waypoint || "No waypoint found.")
     } catch (error) {
       if (error instanceof Error) {
         await ErrorHandler.custom(error.message, interaction, true)

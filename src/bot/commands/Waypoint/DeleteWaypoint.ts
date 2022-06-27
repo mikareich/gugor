@@ -42,6 +42,7 @@ class DeleteWaypoint extends Subcommand {
 
       await axios.delete(route(`/waypoint`), {
         data: {
+          // eslint-disable-next-line no-underscore-dangle
           id: waypoint._id,
         },
         headers: { Authorization: "***" },
