@@ -8,5 +8,5 @@ const commands = [new Waypoint(), new Gugor()]
 
 // setup modules
 Promise.all([startBot(commands), startServer()]).then(() => {
-  logCLI("All modules loaded. Ready to start :yay:", "success", "index")
+  logCLI("All modules loaded. Ready to start :yay:", "success", "/index.ts")
 })
