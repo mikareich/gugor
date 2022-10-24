@@ -24,4 +24,4 @@ disk: 512
 
 web:
   commands:
-    start: "node index.js"
+    start: "npm install && npm run start"
