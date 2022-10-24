@@ -1,5 +1,6 @@
 import { CommandInteraction } from "discord.js"
 import { Error } from "../../interfaces/index"
+import logCLI from "../../utils/logCLI"
 
 class ErrorHandler {
   public static Errors: Error[] = [
@@ -23,35 +24,26 @@ class ErrorHandler {
    * @param interaction Interaction Object
    * @returns Error Object
    */
-  public static withCode(
+  public static async withCode(
     code: number,
-    interaction: CommandInteraction
-  ): Error | undefined {
+    interaction: CommandInteraction,
+    details?: string
+  ): Promise<Error | undefined> {
     const error = ErrorHandler.Errors.find((e) => e.code === code)
 
-    if (!error) return ErrorHandler.withCode(1, interaction)
+    if (!error) return ErrorHandler.withCode(1, interaction, details)
 
-    interaction?.reply(error.message)
+    const errorMessage = `⚠️ ${error.message} ⚠️ \n**Details:** \`${details}\``
+
+    if (interaction.replied || interaction.deferred) {
+      await interaction.editReply(errorMessage)
+    } else {
+      await interaction.reply(errorMessage)
+    }
+
+    logCLI(errorMessage, "warning", "/bot/errorHandler/ErrorHandler.ts")
 
     return error
-  }
-
-  /**
-   * Replies with an error custom message.
-   * @param message Message of the error
-   * @param interaction Interaction Object
-   * @param replied Whether the interaction has been replied to
-   */
-  public static async custom(
-    message: string,
-    interaction: CommandInteraction,
-    replied = false
-  ) {
-    if (replied) {
-      await interaction.editReply(message)
-    } else {
-      await interaction.reply(message)
-    }
   }
 }
 

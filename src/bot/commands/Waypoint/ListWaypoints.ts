@@ -26,7 +26,7 @@ class GetWaypoint extends Subcommand {
       console.error(error)
 
       if (error instanceof Error) {
-        ErrorHandler.custom(error.message, interaction, true)
+        ErrorHandler.withCode(3, interaction, error.message)
       }
     }
   }

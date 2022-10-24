@@ -21,9 +21,9 @@ if (
   DC_FLUFFY_TUFFYS_GUILD_ID &&
   MONGO_URI
 ) {
-  logCLI("All env variables are set", "success")
+  logCLI("All env variables are set", "success", "envVariables.ts")
 } else {
-  logCLI("Missing environment variables", "error")
+  logCLI("Missing environment variables", "error", "envVariables.ts")
   process.exit(1)
 }
 

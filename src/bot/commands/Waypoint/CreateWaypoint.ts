@@ -1,5 +1,5 @@
 import { CommandInteraction } from "discord.js"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import ErrorHandler from "../../errorHandler/ErrorHandler"
 import Subcommand from "../../utils/Subcommand"
 import { CommandOption, WorldDimension } from "../../../interfaces"
@@ -81,11 +81,14 @@ class CreateWaypoint extends Subcommand {
       await axios.post(route("/waypoint"), waypoint)
 
       interaction.editReply(`Waypoint ${name} created.`)
-    } catch (error) {
-      logCLI(error, "error")
+    } catch (err: any) {
+      const error = err as AxiosError<{ error: string }, any> | Error
 
-      if (error instanceof Error) {
-        ErrorHandler.custom(error.message, interaction, true)
+      if (axios.isAxiosError(error)) {
+        // @ts-ignore
+        await ErrorHandler.withCode(3, interaction, error.response.data.error)
+      } else {
+        await ErrorHandler.withCode(3, interaction, error.message)
       }
     }
   }

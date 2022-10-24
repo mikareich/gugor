@@ -53,7 +53,7 @@ class DeleteWaypoint extends Subcommand {
       logCLI(error, "error")
 
       if (error instanceof Error) {
-        await ErrorHandler.custom(error.message, interaction, true)
+        ErrorHandler.withCode(3, interaction, error.message)
       }
     }
   }

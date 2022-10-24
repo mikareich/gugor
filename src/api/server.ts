@@ -21,10 +21,10 @@ async function startServer() {
 
   try {
     app.listen(PORT, () => {
-      logCLI(`Server started on port ${PORT}`, "success")
+      logCLI(`Server started on port ${PORT}`, "success", "/api/server.ts")
     })
   } catch (error) {
-    logCLI(error, "error")
+    logCLI(error, "error", "/api/server")
   }
 }
 

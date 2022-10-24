@@ -1,15 +1,12 @@
-import { Waypoint } from "./bot/commands"
-import botClient from "./bot/utils/client"
-import handleInteraction from "./bot/eventHandler/handleInteraction"
+import Waypoint from "./bot/commands/Waypoint"
+import Gugor from "./bot/commands/Gugor"
 import startServer from "./api/server"
 import logCLI from "./utils/logCLI"
 import startBot from "./bot/bot"
 
-const commands = [new Waypoint()]
+const commands = [new Waypoint(), new Gugor()]
 
 // setup modules
 Promise.all([startBot(commands), startServer()]).then(() => {
-  logCLI("All modules loaded.", "success")
-
-
+  logCLI("All modules loaded. Ready to start :yay:", "success", "index")
 })

@@ -7,9 +7,9 @@ async function connectDB() {
   try {
     await connect(envVariables.MONGO_URI)
 
-    logCLI("Connected to database", "success")
+    logCLI("Connected to database", "success", "/api/utils/connectDB.ts")
   } catch (error) {
-    logCLI(error, "error")
+    logCLI(error, "error", "/api/utils/connectDB.ts")
   }
 }
 

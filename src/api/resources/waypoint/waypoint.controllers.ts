@@ -4,6 +4,7 @@ import {
   Waypoint as IWaypoint,
   WorldDimension,
 } from "../../../interfaces"
+import logCLI from "../../../utils/logCLI"
 import Waypoint from "./waypoint.model"
 
 interface WaypointQuery {
@@ -18,8 +19,6 @@ export async function createWaypoint(
   req: Request<{}, {}, IWaypoint>,
   res: Response
 ) {
-  console.log(req.body)
-
   try {
     const waypointData = req.body
 
@@ -27,11 +26,10 @@ export async function createWaypoint(
 
     res.status(201).json(waypoint)
   } catch (error) {
-    console.error(error)
-
-    if (error instanceof Error) {
-      res.status(400).json({ error: error.message })
-    }
+    // @ts-ignore
+    logCLI(error, "error", "waypoint.controllers.ts")
+    // @ts-ignore
+    res.status(400).json({ error: error.message })
   }
 }
 
@@ -39,7 +37,6 @@ export async function getWaypoint(
   req: Request<{}, {}, WaypointQuery>,
   res: Response
 ) {
-  console.log(req.body)
   try {
     const query = req.body
 

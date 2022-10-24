@@ -13,9 +13,9 @@ async function startBot(commands: Command[]) {
       handleInteraction(interaction, commands)
     )
 
-    logCLI("Bot started", "success")
+    logCLI("Bot started", "success", "/bot/bot.ts")
   } catch (error) {
-    logCLI(error, "error")
+    logCLI(error, "error", "/bot/bot.ts")
   }
 }
 

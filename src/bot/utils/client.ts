@@ -13,9 +13,9 @@ const botClient = new Client({
 export async function loginClient() {
   try {
     await botClient.login(envVars.DC_TOKEN)
-    logCLI("Logged in to discord", "success")
+    logCLI("Logged in to discord", "success", "/bot/utils/client.ts")
   } catch (error) {
-    logCLI(error, "error")
+    logCLI(error, "error", "/bot/utils/client.ts")
   }
 }
 

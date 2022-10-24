@@ -39,7 +39,7 @@ class GetWaypoint extends Subcommand {
       await interaction.editReply(waypoint || "No waypoint found.")
     } catch (error) {
       if (error instanceof Error) {
-        await ErrorHandler.custom(error.message, interaction, true)
+        ErrorHandler.withCode(3, interaction, error.message)
       }
     }
   }

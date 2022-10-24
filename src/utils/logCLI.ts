@@ -1,5 +1,3 @@
-type Status = "success" | "error" | "warning" | "info"
-
 const statusEmojis = {
   success: "✅",
   error: "❌",
@@ -7,14 +5,16 @@ const statusEmojis = {
   info: "ℹ️",
 }
 
-function logCLI(message: string | unknown, status: Status = "info") {
-  const emoji = statusEmojis[status]
+type Status = keyof typeof statusEmojis
 
-  if (status === "error") {
-    console.error(`${emoji} ${message}`)
-  }
+function logCLI(message: string | unknown, status?: Status, module?: string) {
+  const emoji = statusEmojis[status || "info"]
 
-  console.log(`[${emoji}] ${message}`)
+  const prefix = module
+    ? `[${emoji} in \x1b[33m${module}\x1b[0m]`
+    : `[${emoji}]`
+
+  console.log(`${prefix} ${message}`)
 }
 
 export default logCLI
