@@ -26,10 +26,11 @@ export async function createWaypoint(
 
     res.status(201).json(waypoint)
   } catch (error) {
-    // @ts-ignore
-    logCLI(error, "error", "waypoint.controllers.ts")
-    // @ts-ignore
-    res.status(400).json({ error: error.message })
+    logCLI(error, "error", "/api/resources/waypoint/waypoint.controllers.ts")
+
+    if (error instanceof Error) {
+      res.status(400).json({ error: error.message })
+    }
   }
 }
 
@@ -44,7 +45,7 @@ export async function getWaypoint(
 
     res.status(200).json(waypoints)
   } catch (error) {
-    console.error(error)
+    logCLI(error, "error", "/api/resources/waypoint/waypoint.controllers.ts")
 
     if (error instanceof Error) {
       res.status(400).json({ error: error.message })
@@ -65,7 +66,7 @@ export async function deleteWaypoint(
 
     res.status(200).json({ message: `Waypoint with id ${id} deleted.` })
   } catch (error) {
-    console.error(error)
+    logCLI(error, "error", "/api/resources/waypoint/waypoint.controllers.ts")
 
     if (error instanceof Error) {
       res.status(400).json({ error: error.message })

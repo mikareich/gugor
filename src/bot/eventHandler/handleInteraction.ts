@@ -30,7 +30,7 @@ async function handleInteraction(
       await command.execute(interaction)
     }
   } catch (error) {
-    logCLI(error, "error")
+    logCLI(error, "error", "/bot/eventHandler/handleInteraction.ts")
     await ErrorHandler.withCode(3, interaction, error as string)
   }
 }

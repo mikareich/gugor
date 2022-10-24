@@ -22,7 +22,7 @@ async function registerCommands(commands: Command[]) {
       }
     )
   } catch (error) {
-    logCLI(error, "error")
+    logCLI(error, "error", "/bot/utils/registerCommands.ts")
   }
 }
 

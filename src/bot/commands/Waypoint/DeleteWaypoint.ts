@@ -50,7 +50,7 @@ class DeleteWaypoint extends Subcommand {
 
       interaction.editReply(`Waypoint ${name} deleted.`)
     } catch (error) {
-      logCLI(error, "error")
+      logCLI(error, "error", "/bot/commands/Waypoint/DeleteWaypoint.ts")
 
       if (error instanceof Error) {
         ErrorHandler.withCode(3, interaction, error.message)
