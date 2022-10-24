@@ -8,7 +8,7 @@
     "dev:bot": "DEV_ENV=true nodemon --watch src --exec ts-node src/bot/index.ts",
     "dev:server": "DEV_ENV=true nodemon --watch src --exec ts-node src/api/index.ts",
     "dev": "DEV_ENV=true nodemon --watch src --exec ts-node src/index.ts ",
-    "start": "node index.js",
+    "start": "DEV_ENV=false node index.js",
     "types": "tsc",
     "build": "babel src --out-dir lib --copy-files --extensions '.ts,.js'",
     "lint": "eslint 'src/**/*.ts' --fix"
