@@ -24,6 +24,11 @@ async function handleInteraction(
 
   // execute command
   try {
+    logCLI(
+      { interaction, command, subcommand },
+      "info",
+      "src/bot/eventHandler/handleInteraction.ts"
+    )
     if (subcommand) {
       await subcommand.execute(interaction)
     } else if (command.execute) {
