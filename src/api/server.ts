@@ -27,6 +27,9 @@ app.get("/", (req, res) => res.send("Hey welcome"))
 app.use("/api/waypoint", waypointRouter)
 app.use("/api/player", playerRouter)
 app.use("/api/discord", discordRouter)
+
+app.use("/verify", express.static("./src/api/verification-gui"))
+
 async function startServer() {
   await connectDB()
 
