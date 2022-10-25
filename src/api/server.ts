@@ -4,6 +4,7 @@ import connectDB from "./utils/connectDB"
 import waypointRouter from "./resources/waypoint/waypoint.router"
 import playerRouter from "./resources/player/player.router"
 import logCLI from "../utils/logCLI"
+import discordRouter from "./resources/discord"
 
 const PORT = process.env.PORT || 3000
 const app = express()
@@ -25,7 +26,7 @@ app.get("/", (req, res) => res.send("Hey welcome"))
 
 app.use("/api/waypoint", waypointRouter)
 app.use("/api/player", playerRouter)
-
+app.use("/api/discord", discordRouter)
 async function startServer() {
   await connectDB()
 
