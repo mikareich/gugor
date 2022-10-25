@@ -1,5 +1,5 @@
 /* eslint-disable global-require */
-if (process.env.DEV_ENV === "true") {
+if (process.env.NODE_ENV === "prod") {
   require("@babel/register")({
     extensions: [".js", ".ts"],
   })
