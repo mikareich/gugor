@@ -9,7 +9,7 @@ async function connectDB() {
 
     logCLI("Connected to database", "success", "/api/utils/connectDB.ts")
   } catch (error) {
-    logCLI(error, "error", "/api/utils/connectDB.ts")
+    logCLI(error as string, "error", "/api/utils/connectDB.ts")
   }
 }
 

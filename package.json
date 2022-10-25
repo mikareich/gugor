@@ -5,10 +5,10 @@
   "main": "src/index.ts",
   "type": "commonjs",
   "scripts": {
-    "dev:bot": "DEV_ENV=true nodemon --watch src --exec ts-node src/bot/index.ts",
-    "dev:server": "DEV_ENV=true nodemon --watch src --exec ts-node src/api/index.ts",
-    "dev": "DEV_ENV=true nodemon --watch src --exec ts-node src/index.ts ",
-    "start": "DEV_ENV=false node index.js",
+    "dev:bot": "NODE_ENV=dev nodemon --watch src --exec ts-node src/bot/index.ts",
+    "dev:server": "NODE_ENV=dev nodemon --watch src --exec ts-node src/api/index.ts",
+    "dev": "NODE_ENV=dev nodemon --watch src --exec ts-node src/index.ts ",
+    "start": "NODE_ENV=prod node index.js",
     "types": "tsc",
     "build": "babel src --out-dir lib --copy-files --extensions '.ts,.js'",
     "lint": "eslint 'src/**/*.ts' --fix"
