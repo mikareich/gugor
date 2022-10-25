@@ -2,7 +2,10 @@ const form = document.getElementById("form")
 const discordUsernameINPUT = document.getElementById("discordUsername")
 const minecraftUsernameINPUT = document.getElementById("minecraftUsername")
 const passwordINPUT = document.getElementById("password")
+
 const errorMessageSPAN = document.getElementById("errorMessage")
+const successMessageSPAN = document.getElementById("successMessage")
+const loadingMessageSPAN = document.getElementById("loadingMessage")
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault()
@@ -10,6 +13,8 @@ form.addEventListener("submit", async (e) => {
   const discordUsername = discordUsernameINPUT.value.replace("#", "%23") //
   const minecraftUsername = minecraftUsernameINPUT.value
   const password = passwordINPUT.value
+
+  loadingMessageSPAN.classList.remove("hidden")
 
   // fetch minecraft uuid
   const { uuid: minecraftUUID } = await fetch(
@@ -33,10 +38,11 @@ form.addEventListener("submit", async (e) => {
   })
     // log error message if any
     .then((response) => {
-      if (response.status >= 400 && response.status < 600)
-        throw new Error("Bad response from server")
-    })
-    .catch(() => {
-      errorMessageSPAN.classList.remove("invisible")
+      loadingMessageSPAN.classList.add("hidden")
+      if (response.status >= 400 && response.status < 600) {
+        errorMessageSPAN.classList.remove("hidden")
+      } else {
+        successMessageSPAN.classList.remove("hidden")
+      }
     })
 })

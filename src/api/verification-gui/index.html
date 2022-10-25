@@ -56,10 +56,19 @@
         </button>
       </form>
 
-      <span id="errorMessage" class="italic text-red-700 invisible"
+      <span id="loadingMessage" class="italic text-gray-700 hidden">
+        We are verifying your informations. Please wait...
+      </span>
+
+      <span id="errorMessage" class="italic text-red-700 hidden"
         >Oh snap, an error occured! Please check your entries or try later
         again.</span
       >
+
+      <span id="successMessage" class="italic text-green-700 hidden">
+        You have been verified successfully! You can now join our server and
+        close this window.
+      </span>
 
       <script src="./app.js"></script>
     </div>
