@@ -2,6 +2,7 @@ const form = document.getElementById("form")
 const discordUsernameINPUT = document.getElementById("discordUsername")
 const minecraftUsernameINPUT = document.getElementById("minecraftUsername")
 const passwordINPUT = document.getElementById("password")
+const errorMessageSPAN = document.getElementById("errorMessage")
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault()
@@ -20,19 +21,22 @@ form.addEventListener("submit", async (e) => {
     `https://gugor-myeqf.ondigitalocean.app/api/discord/${discordUsername}`
   ).then((res) => res.json())
 
-  console.log(minecraftUUID, discordID)
-
-  if (minecraftUUID && discordID) {
-    await fetch("https://gugor-myeqf.ondigitalocean.app/api/player/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        minecraftUUID,
-        discordID,
-        password,
-        role: "default",
-      }),
+  fetch("https://gugor-myeqf.ondigitalocean.app/api/player/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      minecraftUUID,
+      discordID,
+      password,
+      role: "default",
+    }),
+  })
+    // log error message if any
+    .then((response) => {
+      if (response.status >= 400 && response.status < 600)
+        throw new Error("Bad response from server")
     })
-  } else {
-  }
+    .catch(() => {
+      errorMessageSPAN.classList.remove("invisible")
+    })
 })

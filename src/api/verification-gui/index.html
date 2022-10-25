@@ -11,18 +11,22 @@
       <h1>Player Verification</h1>
       <p>
         Please fill out the following informations in order to play on our
-        server.
+        server. To get verified, you need to be a member of our Discord server.
+        If you are not, please
+        <a href="https://discord.gg/GgXZy9FU">join our Discord server</a> first.
       </p>
 
       <form id="form" class="grid grid-cols-1 max-w-md gap-6">
         <label class="block" for="discordUsername">
-          <span class="text-gray-700">Discord ID</span>
+          <span class="text-gray-700">Discord Username</span>
           <input
             class="block w-full"
             type="text"
             id="discordUsername"
             name="discordUsername"
             placeholder="e.g. Gugor#0001"
+            value="Mika Reich#3391"
+            required
           />
         </label>
         <label class="block" for="minecraftUsername">
@@ -33,6 +37,8 @@
             id="minecraftUsername"
             name="minecraftUsername"
             placeholder="e.g. Gugor"
+            value="omupp"
+            required
           />
         </label>
         <label class="block" for="password">
@@ -43,6 +49,8 @@
             id="password"
             name="password"
             placeholder="e.g. 123456"
+            value="123456"
+            required
           />
         </label>
 
@@ -50,6 +58,11 @@
           Verificate me
         </button>
       </form>
+
+      <span id="errorMessage" class="italic text-red-700 invisible"
+        >Oh snap, an error occured! Please check your entries or try later
+        again.</span
+      >
 
       <script src="./app.js"></script>
     </div>

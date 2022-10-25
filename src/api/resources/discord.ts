@@ -11,13 +11,20 @@ router.get("/:username", async (req: Request, res: Response) => {
 
   const guild = client.guilds.resolve(envVariables.DC_FLUFFY_TUFFYS_GUILD_ID)
   const allUsers = await guild?.members.fetch()
-
-  const user = allUsers?.find(
-    (usr) =>
-      usr.user.username === name &&
-      usr.user.discriminator === discriminator &&
+  const user = allUsers?.find((usr) => {
+    console.log(
+      usr.user.username,
+      name.trim(),
+      usr.user.discriminator,
+      discriminator.trim(),
+      usr.user.bot
+    )
+    return (
+      usr.user.username.trim() === name.trim() &&
+      usr.user.discriminator.trim() === discriminator.trim() &&
       !usr.user.bot
-  )
+    )
+  })
 
   if (user) {
     res.status(200).json(user)
