@@ -4,6 +4,7 @@ import startServer from "./api/server"
 import logCLI from "./utils/logCLI"
 import startBot from "./bot/bot"
 import envVariables from "./utils/envVariables"
+import route from "./api/utils/route"
 
 const commands = [new Waypoint(), new Gugor()]
 
@@ -16,4 +17,5 @@ Promise.all([startBot(commands), startServer()]).then(() => {
     .join("")
 
   logCLI(`env variables: ${formattedVariables}`, "info", "/index.ts")
+  logCLI(`Using ${route("")} as API URI`, "info", "/index.ts")
 })

@@ -1,7 +1,7 @@
 import envVariables from "../../utils/envVariables"
 
 const API_URI =
-  envVariables.NODE_ENV === "production"
+  envVariables.NODE_ENV === "prod"
     ? envVariables.PROD_API_URI
     : envVariables.DEV_API_URI
 
