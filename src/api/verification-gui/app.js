@@ -7,6 +7,14 @@ const errorMessageSPAN = document.getElementById("errorMessage")
 const successMessageSPAN = document.getElementById("successMessage")
 const loadingMessageSPAN = document.getElementById("loadingMessage")
 
+// load all query params from url and prefill the form with them
+const urlParams = new URLSearchParams(window.location.search)
+if (urlParams.has("discordUsername"))
+  discordUsernameINPUT.value = urlParams.get("discordUsername")
+
+if (urlParams.has("minecraftUsername"))
+  minecraftUsernameINPUT.value = urlParams.get("minecraftUsername")
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault()
 
