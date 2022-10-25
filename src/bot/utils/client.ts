@@ -4,7 +4,11 @@ import envVars from "../../utils/envVariables"
 
 /** Client object for the discord bot */
 const botClient = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_MEMBERS,
+  ],
 })
 
 /**
