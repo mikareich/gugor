@@ -1,12 +1,9 @@
-import Waypoint from "./bot/commands/Waypoint"
-import Gugor from "./bot/commands/Gugor"
 import startServer from "./api/server"
 import logCLI from "./utils/logCLI"
 import startBot from "./bot/bot"
 import envVariables from "./utils/envVariables"
 import route from "./api/utils/route"
-
-const commands = [new Waypoint(), new Gugor()]
+import commands from "./bot/commands"
 
 // setup modules
 Promise.all([startBot(commands), startServer()]).then(() => {
