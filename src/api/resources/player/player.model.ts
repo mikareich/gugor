@@ -27,6 +27,7 @@ const PlayerSchema = new Schema(
       type: {
         numberOfDeaths: Integer,
         level: Integer,
+        trackedWaypoints: [String],
         position: {
           dimension: {
             type: String,
