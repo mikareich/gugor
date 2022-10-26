@@ -21,6 +21,7 @@ function loggerMiddleware(
       BODY: request.body,
       QUERY: request.query,
       IP: request.ip,
+      URL: request.url,
     },
     "info",
     "/api/server.ts"
