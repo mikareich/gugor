@@ -12,6 +12,7 @@ class WasMachtMika extends Subcommand {
       "Rocket Science mit Marco 🚀",
       "Einen Mittagsschlaf",
       "DON'T ASK",
+      "duschen ;)))))",
     ]
 
     const answer =
