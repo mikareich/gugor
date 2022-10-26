@@ -25,6 +25,17 @@ class GetWaypoint extends Subcommand {
 
     const name = interaction.options.getString("name")!
 
+    const user = await axios
+      .get(route("/player"), {
+        data: {
+          discordId: interaction.user.id,
+        },
+        headers: { Authorization: "***" },
+      })
+      .then((res) => res.data[0])
+
+    console.log(user)
+
     try {
       const waypoint = await axios
         .get(route(`/waypoint`), {

@@ -14,7 +14,17 @@ function loggerMiddleware(
   response: Response,
   next: NextFunction
 ) {
-  logCLI(request, "info", "/api/server.ts")
+  logCLI(
+    {
+      METHOD: request.method,
+      PARAMS: request.params,
+      BODY: request.body,
+      QUERY: request.query,
+      IP: request.ip,
+    },
+    "info",
+    "/api/server.ts"
+  )
   next()
 }
 

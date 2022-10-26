@@ -77,7 +77,7 @@ export async function updatePlayer(
     const { id, update } = req.body
 
     const player = await Player.findByIdAndUpdate(id, update, {
-      returnOriginal: false,
+      returnDocument: "after", // Return the updated document
     })
 
     res.status(200).json(player)
