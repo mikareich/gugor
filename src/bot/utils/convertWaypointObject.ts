@@ -7,8 +7,11 @@ import { IWaypoint } from "../../interfaces"
  * @returns Waypoint as string.
  */
 function convertWaypointObject(waypoint: IWaypoint): string {
-  return `${waypoint.name} (${waypoint.dimension}): ${inlineCode(
-    `${waypoint.coordinates.x}, ${waypoint.coordinates.y}, ${waypoint.coordinates.z}`
+  const { name, position } = waypoint
+  const { dimension, coordinates } = position
+
+  return `${name} (${dimension}): ${inlineCode(
+    `${coordinates.x}, ${coordinates.y}, ${coordinates.z}`
   )}`
 }
 
