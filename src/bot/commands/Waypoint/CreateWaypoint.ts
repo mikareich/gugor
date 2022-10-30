@@ -68,11 +68,13 @@ class CreateWaypoint extends Subcommand {
 
     const waypoint = {
       name,
-      dimension,
-      coordinates: {
-        x,
-        y,
-        z,
+      position: {
+        dimension,
+        coordinates: {
+          x,
+          y,
+          z,
+        },
       },
     }
 

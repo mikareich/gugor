@@ -9,18 +9,20 @@ const WaypointSchema = new Schema(
       required: true,
       unique: true,
     },
-    dimension: {
-      type: String,
-      required: true,
-      enum: ["overworld", "nether", "end"],
-    },
-    coordinates: {
-      type: {
-        x: Integer,
-        y: Integer,
-        z: Integer,
+    position: {
+      dimension: {
+        type: String,
+        required: true,
+        enum: ["overworld", "nether", "end"],
       },
-      required: true,
+      coordinates: {
+        type: {
+          x: Integer,
+          y: Integer,
+          z: Integer,
+        },
+        required: true,
+      },
     },
   },
   {

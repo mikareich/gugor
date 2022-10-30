@@ -2,15 +2,18 @@ import { Router } from "express"
 import {
   createWaypoint,
   deleteWaypoint,
+  getAllWaypoints,
   getWaypoint,
 } from "./waypoint.controllers"
 
 const router = Router()
 
-router.get("/", getWaypoint)
+router.get("/", getAllWaypoints)
+
+router.get("/:name", getWaypoint)
 
 router.post("/", createWaypoint)
 
-router.delete("/", deleteWaypoint)
+router.delete("/:name", deleteWaypoint)
 
 export default router

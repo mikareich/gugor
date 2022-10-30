@@ -1,22 +1,55 @@
 import { Request, Response } from "express"
-import {
-  IDQuery,
-  Waypoint as IWaypoint,
-  WorldDimension,
-} from "../../../interfaces"
+import { WorldDimension } from "../../../interfaces"
 import logCLI from "../../../utils/logCLI"
 import Waypoint from "./waypoint.model"
 
-interface WaypointQuery {
-  name?: string
-  dimension?: WorldDimension
-  "coordinates.x"?: number
-  "coordinates.y"?: number
-  "coordinates.z"?: number
+const logErrorMsg = (error: unknown, res: Response) => {
+  logCLI(
+    error as string,
+    "error",
+    "/api/resources/waypoint/waypoint.controllers.ts"
+  )
+
+  if (error instanceof Error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+export async function getAllWaypoints(req: Request, res: Response) {
+  try {
+    const waypoints = await Waypoint.find()
+
+    res.status(200).json(waypoints)
+  } catch (error) {
+    logErrorMsg(error, res)
+  }
+}
+
+export async function getWaypoint(req: Request, res: Response) {
+  try {
+    const { name } = req.params
+    const waypoint = await Waypoint.find({ name })
+
+    res.status(200).json(waypoint)
+  } catch (error) {
+    logErrorMsg(error, res)
+  }
+}
+
+interface CreateWaypointBody {
+  name: string
+  position: {
+    dimension: WorldDimension
+    coordinates: {
+      x: number
+      y: number
+      z: number
+    }
+  }
 }
 
 export async function createWaypoint(
-  req: Request<{}, {}, IWaypoint>,
+  req: Request<{}, {}, CreateWaypointBody>,
   res: Response
 ) {
   try {
@@ -24,64 +57,24 @@ export async function createWaypoint(
 
     const waypoint = await Waypoint.create(waypointData)
 
-    res.status(201).json(waypoint)
+    res.status(200).json(waypoint)
   } catch (error) {
-    logCLI(
-      error as string,
-      "error",
-      "/api/resources/waypoint/waypoint.controllers.ts"
-    )
-
-    if (error instanceof Error) {
-      res.status(400).json({ error: error.message })
-    }
-  }
-}
-
-export async function getWaypoint(
-  req: Request<{}, {}, WaypointQuery>,
-  res: Response
-) {
-  try {
-    const query = req.body
-
-    const waypoints = await Waypoint.find(query)
-
-    res.status(200).json(waypoints)
-  } catch (error) {
-    logCLI(
-      error as string,
-      "error",
-      "/api/resources/waypoint/waypoint.controllers.ts"
-    )
-
-    if (error instanceof Error) {
-      res.status(400).json({ error: error.message })
-    }
+    logErrorMsg(error, res)
   }
 }
 
 export async function deleteWaypoint(
-  req: Request<{}, {}, IDQuery>,
+  req: Request,
   res: Response
 ): Promise<void> {
   try {
-    const { id } = req.body
+    const { name } = req.params
 
-    const waypoint = await Waypoint.findByIdAndDelete(id)
+    const waypoint = await Waypoint.findOneAndDelete({ name })
 
-    if (!waypoint) throw new Error(`Waypoint with id ${id} not found.`)
-
-    res.status(200).json({ message: `Waypoint with id ${id} deleted.` })
+    if (!waypoint) throw new Error(`Waypoint with id ${name} not found.`)
+    res.status(200).json({ message: `Waypoint with id ${name} deleted.` })
   } catch (error) {
-    logCLI(
-      error as string,
-      "error",
-      "/api/resources/waypoint/waypoint.controllers.ts"
-    )
-
-    if (error instanceof Error) {
-      res.status(400).json({ error: error.message })
-    }
+    logErrorMsg(error, res)
   }
 }
