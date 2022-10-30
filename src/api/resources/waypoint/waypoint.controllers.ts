@@ -1,19 +1,7 @@
 import { Request, Response } from "express"
 import { WorldDimension } from "../../../interfaces"
-import logCLI from "../../../utils/logCLI"
+import logErrorMsg from "../../utils/logError"
 import Waypoint from "./waypoint.model"
-
-const logErrorMsg = (error: unknown, res: Response) => {
-  logCLI(
-    error as string,
-    "error",
-    "/api/resources/waypoint/waypoint.controllers.ts"
-  )
-
-  if (error instanceof Error) {
-    res.status(400).json({ error: error.message })
-  }
-}
 
 export async function getAllWaypoints(req: Request, res: Response) {
   try {
@@ -72,8 +60,8 @@ export async function deleteWaypoint(
 
     const waypoint = await Waypoint.findOneAndDelete({ name })
 
-    if (!waypoint) throw new Error(`Waypoint with id ${name} not found.`)
-    res.status(200).json({ message: `Waypoint with id ${name} deleted.` })
+    if (!waypoint) throw new Error(`Waypoint with name ${name} not found.`)
+    res.status(200).json({ message: `Waypoint with name ${name} deleted.` })
   } catch (error) {
     logErrorMsg(error, res)
   }

@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose"
-import { Waypoint } from "../../../interfaces"
+import { IWaypoint } from "../../../interfaces"
 import Integer from "../../utils/Integer"
 
 const WaypointSchema = new Schema(
@@ -31,4 +31,4 @@ const WaypointSchema = new Schema(
   }
 )
 
-export default model<Waypoint>("Waypoint", WaypointSchema)
+export default model<IWaypoint>("Waypoint", WaypointSchema)

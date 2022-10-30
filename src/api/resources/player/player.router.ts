@@ -2,18 +2,21 @@ import { Router } from "express"
 import {
   createPlayer,
   deletePlayer,
+  getAllPlayers,
   getPlayer,
-  updatePlayer,
+  updatePlayerStats,
 } from "./player.controllers"
 
 const router = Router()
 
-router.get("/", getPlayer)
+router.get("/", getAllPlayers)
+
+router.get("/:id", getPlayer)
 
 router.post("/", createPlayer)
 
-router.put("/", updatePlayer)
+router.put("/updateStats/:id", updatePlayerStats)
 
-router.delete("/", deletePlayer)
+router.delete("/:id", deletePlayer)
 
 export default router

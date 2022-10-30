@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose"
-import { Player } from "../../../interfaces"
+import { IPlayer } from "../../../interfaces"
 import Integer from "../../utils/Integer"
 
 const PlayerSchema = new Schema(
@@ -27,7 +27,8 @@ const PlayerSchema = new Schema(
       type: {
         numberOfDeaths: Integer,
         level: Integer,
-        trackedWaypoints: String || undefined,
+        trackedWaypoint: String,
+        lives: Integer,
         position: {
           dimension: {
             type: String,
@@ -50,4 +51,4 @@ const PlayerSchema = new Schema(
   }
 )
 
-export default model<Player>("Player", PlayerSchema)
+export default model<IPlayer>("Player", PlayerSchema)

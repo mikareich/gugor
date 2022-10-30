@@ -8,7 +8,7 @@ export interface IDQuery {
 export type WorldDimension = "overworld" | "nether" | "end"
 
 /** Position in Minecraft world */
-interface Position {
+interface IPosition {
   /** World Dimension */
   dimension: WorldDimension
   /** Coordinates of the player */
@@ -20,7 +20,7 @@ interface Position {
 }
 
 /** Specific position in a Minecraft world */
-export interface Waypoint extends Position {
+export interface IWaypoint {
   /** Intern ID of the waypoint */
   _id: string
   /** Name of the waypoint */
@@ -29,22 +29,34 @@ export interface Waypoint extends Position {
   createdAt: string
   /** Last time updated */
   updatedAt: string
+  /** Position of the waypoint */
+  position: IPosition
 }
 
 /** Different player roles */
 export type PlayerRole = "admin" | "operator" | "default"
 
-export interface PlayerStats {
+export interface IPlayerStats {
   /** How many times the player has already died in the Minecraft world */
   numberOfDeaths?: number
-  /** Number of experience points */
-  xpLevel?: number
+  /** Number of levels */
+  level?: number
+  /** Lives of the player */
+  lives?: number
   /** Position of the player in the Minecraft world */
-  position?: Position
+  position?: {
+    /** World Dimension */
+    dimension: "overworld" | "nether" | "end"
+    /** Coordinates of the player */
+    coordinates: {
+      x: number
+      y: number
+      z: number
+    }
+  }
 }
-
 /** Represents a Minecraft player */
-export interface Player {
+export interface IPlayer {
   /** Intern ID of the player */
   _id: string
   /** Discord id of the player */
@@ -55,8 +67,10 @@ export interface Player {
   role: PlayerRole
   /** Password */
   password: string
+  /** Tracked waypoint of player */
+  trackedWaypoint: string
   /** Minecraft game stats */
-  stats: PlayerStats
+  stats: IPlayerStats
   /** Creation date */
   createdAt: string
   /** Last time updated */
